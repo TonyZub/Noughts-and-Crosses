@@ -67,6 +67,7 @@
         productVersion: "1.0",
         showBanner: unityShowBanner,
       };
+      var unityInstance;
 
       // By default Unity keeps WebGL canvas render target size matched with
       // the DOM size of the canvas element (scaled by window.devicePixelRatio)
@@ -104,10 +105,11 @@
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
+        }).then((instance) => {
+          unityInstance = instance;
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1);
+            instance.SetFullscreen(1);
           };
         }).catch((message) => {
           alert(message);
